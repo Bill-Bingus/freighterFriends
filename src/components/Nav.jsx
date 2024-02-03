@@ -13,7 +13,7 @@ function Nav ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) {
       <div className="logo-container">
         <img
           className="logo"
-          src={minimal ? freightLogo : whiteLogo}
+          src={minimal ? colorLogo : colorLogo}
           alt="logo"
         />
       </div>

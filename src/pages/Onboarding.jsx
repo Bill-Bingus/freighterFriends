@@ -9,6 +9,7 @@ function OnBoarding () {
     const [formData, setFormData] = useState({
         user_id: cookies.UserId,
         first_name: "",
+        last_name:"",
         dob_day: "",
         dob_month: "",
         dob_year: "",
@@ -18,6 +19,7 @@ function OnBoarding () {
         url: "",
         about: "",
         matches: [],
+        preference: "flings",
         routes: [
             {
                 start: "",
@@ -86,6 +88,18 @@ function OnBoarding () {
                             value={formData.first_name}
                             onChange={handleChange}
                         />
+
+                        <label htmlFor="last_name">Last Name</label>
+                        <input
+                            id="last_name"
+                            type='text'
+                            name="last_name"
+                            placeholder="Last Name"
+                            required={true}
+                            value={formData.last_name}
+                            onChange={handleChange}
+                        />
+
 
                         <label>Birthday</label>
                         <div className="multiple-input-container">
@@ -286,6 +300,28 @@ function OnBoarding () {
                                     onChange={handleChange}
                                 />
                             </div>
+
+                        <label>Preference</label>
+                        <div className="multiple-input-container">
+                            <input
+                                id="flings-pref"
+                                type="radio"
+                                name="preference"
+                                value="flings"
+                                onChange={handleChange}
+                                checked={formData.preference === "flings"}
+                            />
+                            <label htmlFor="flings-pref">Flings</label>
+                            <input
+                                id="friends-pref"
+                                type="radio"
+                                name="preference"
+                                value="friends"
+                                onChange={handleChange}
+                                checked={formData.preference === "friends"}
+                            />
+                            <label htmlFor="friends-pref">Friends</label>
+                            </div> 
 
 
                     </section>
