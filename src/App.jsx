@@ -1,34 +1,46 @@
-import { useState } from 'react'
-import reactLogo from '/src/assets/react.svg'
-import viteLogo from '/vite.svg'
-import '/src/App.css'
+import Nav from "./components/Nav"
+import AuthModal from "./components/AuthModal"
+import {useState} from 'react'
+import {useCookies} from "react-cookie"
 
 function App () {
-  const [count, setCount] = useState(0)
+    const [showModal, setShowModal] = useState(false)
+    const [isSignUp, setIsSignUp] = useState(true)
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const authToken = cookies.AuthToken
 
-    return(
-        <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    const handleClick = () => {
+        if (authToken) {
+            removeCookie('UserId', cookies.UserId)
+            removeCookie('AuthToken', cookies.AuthToken)
+            window.location.reload()
+            return
+        }
+        setShowModal(true)
+        setIsSignUp(true)
+    }
+
+    return (
+        <div className="overlay">
+            <Nav
+                authToken={authToken}
+                minimal={false}
+                setShowModal={setShowModal}
+                showModal={showModal}
+                setIsSignUp={setIsSignUp}
+            />
+            <div className="home">
+                <h1 className="primary-title">Freighter Finder</h1>
+                <button className="primary-button" onClick={handleClick}>
+                    {authToken ? 'Signout' : 'Create Account'}
+                </button>
+
+
+                {showModal && (
+                    <AuthModal setShowModal={setShowModal} isSignUp={isSignUp}/>
+                )}
+            </div>
+        </div>
     )
 }
-export default App;
+export default App
