@@ -1,6 +1,6 @@
 import whiteLogo from "../assets/tinder_logo_white.png";
 import colorLogo from "../assets/color-logo-tinder.png";
-import freightLogo from "../assets/freighterfriendslogo.webp"
+import freightLogo from "../assets/freigterfriendslogo.png"
 
 function Nav ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) {
   const handleClick = () => {
