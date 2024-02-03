@@ -6,17 +6,21 @@ const SimpleMarker = () => {
       // Define the callback function that's called once the Google Maps script loads
       window.initMap = () => {
         const center = { lat: 40.44330978393555, lng: -79.94284057617188 };
+        const directionsService = new window.google.maps.DirectionsService();
+        const directionsRenderer = new window.google.maps.DirectionsRenderer();
         const map = new window.google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
+          zoom: 4,
           center: center,
-          mapId: 'DEMO_MAP_ID'
+          mapId: 'Route Map'
         });
 
-        new window.google.maps.Marker({
-          position: center,
-          map: map,
-          title: 'My location'
+        const request = {origin: "pittsburgh", destination: "chicago", travelMode: "DRIVING"};
+        directionsService.route(request, function (result, status) {
+            //if (status == "OK") {
+                directionsRenderer.setDirections(result);
+            //}
         });
+        directionsRenderer.setMap(map)
       };
 
       // Load the Google Maps API script
@@ -28,18 +32,19 @@ const SimpleMarker = () => {
 
     loadGoogleMapsScript();
     // Remove script and global initMap function when the component unmounts
-    return () => {
+    /*return () => {
       window.initMap = null;
       const scriptTag = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
+      document.body.appendChild(scriptTag);
       if (scriptTag) {
         document.body.removeChild(scriptTag);
       }
-    };
-  }, []);
+    };*/
+  }, []); 
 
   return (
     <div id="map" style={{ height: '100vh' }}></div>
   );
-};
+}
 
 export default SimpleMarker;
