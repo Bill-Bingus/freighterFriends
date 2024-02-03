@@ -1,6 +1,7 @@
 import google.generativeai as genai
+import os
 
-genai.configure(api_key="AIzaSyDrJWx3t3BtDK1xZG-cqnF2_3YRX7b8MYk")
+genai.configure(os.getenv("GENAI_KEY"))
 
 print("Friends or fling?")
 social = False
