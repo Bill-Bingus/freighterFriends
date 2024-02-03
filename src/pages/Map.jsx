@@ -1,31 +1,45 @@
-function map(){
-    return(
-        <div>
-        <head>
-            <title>Simple Marker</title>
-            <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU2FAFbRlhIEDyHsPFxu021MC75vnct20&callback=console.debug&libraries=maps,marker&v=beta">
-            </script>
-            <style>
-            /* Always set the map height explicitly to define the size of the div
-            * element that contains the map. */
-            gmp-map {
-                height: 100%;
-            }
+import React, { useEffect } from 'react';
 
-            /* Optional: Makes the sample page fill the window. */
-            html,
-            body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            </style>
-        </head>
-        <body>
-            <gmp-map center="40.44330978393555,-79.94284057617188" zoom="14" map-id="DEMO_MAP_ID">
-            <gmp-advanced-marker position="40.44330978393555,-79.94284057617188" title="My location"></gmp-advanced-marker>
-            </gmp-map>
-        </body>
-        </div>
-    );
-}
+const SimpleMarker = () => {
+  useEffect(() => {
+    const loadGoogleMapsScript = () => {
+      // Define the callback function that's called once the Google Maps script loads
+      window.initMap = () => {
+        const center = { lat: 40.44330978393555, lng: -79.94284057617188 };
+        const map = new window.google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: center,
+          mapId: 'DEMO_MAP_ID'
+        });
+
+        new window.google.maps.Marker({
+          position: center,
+          map: map,
+          title: 'My location'
+        });
+      };
+
+      // Load the Google Maps API script
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBU2FAFbRlhIEDyHsPFxu021MC75vnct20&callback=initMap&libraries=maps,marker&v=beta`;
+      script.async = true;
+      document.body.appendChild(script);
+    };
+
+    loadGoogleMapsScript();
+    // Remove script and global initMap function when the component unmounts
+    return () => {
+      window.initMap = null;
+      const scriptTag = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
+      if (scriptTag) {
+        document.body.removeChild(scriptTag);
+      }
+    };
+  }, []);
+
+  return (
+    <div id="map" style={{ height: '100vh' }}></div>
+  );
+};
+
+export default SimpleMarker;
