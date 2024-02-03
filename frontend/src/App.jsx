@@ -30,7 +30,7 @@ function App () {
                 setIsSignUp={setIsSignUp}
             />
             <div className="home">
-                <h1 className="primary-title">Freighter Finder</h1>
+                <h1 className="primary-title">Freighter Friends</h1>
                 <button className="primary-button" onClick={handleClick}>
                     {authToken ? 'Signout' : 'Create Account'}
                 </button>
