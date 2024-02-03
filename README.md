@@ -1,4 +1,4 @@
-### Project Name: Tinder for Truckers
+### Bill Bingus presents: Tinder for Truckers
 
 ### Elevator Pitch:
 
