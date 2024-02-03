@@ -1,5 +1,6 @@
 import whiteLogo from "../assets/tinder_logo_white.png";
 import colorLogo from "../assets/color-logo-tinder.png";
+import freightLogo from "../assets/freigterfriendslogo.png"
 
 function Nav ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) {
   const handleClick = () => {
@@ -12,7 +13,7 @@ function Nav ({ authToken, minimal, setShowModal, showModal, setIsSignUp }) {
       <div className="logo-container">
         <img
           className="logo"
-          src={minimal ? colorLogo : whiteLogo}
+          src={minimal ? colorLogo : colorLogo}
           alt="logo"
         />
       </div>
